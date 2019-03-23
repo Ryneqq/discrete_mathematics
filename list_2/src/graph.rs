@@ -7,11 +7,8 @@ pub struct Graph {
 }
 
 impl Graph {
-    pub fn new(input_nodes: HashMap<u32, Vec<Link>>) -> Self {
-        let mut nodes: HashMap<u32, HashSet<Link>> = input_nodes.iter()
-            .map(|(node, links)|
-                (*node, links.iter().cloned().collect()))
-            .collect();
+    pub fn new(input_nodes: HashMap<u32, HashSet<Link>>) -> Self {
+        let mut nodes = input_nodes.clone();
 
         for (node, links) in input_nodes {
             for link in links {
@@ -52,8 +49,9 @@ impl From<(u32, u32)> for Link {
 
 macro_rules! link {
     ($($x: expr),*) => {{
-        let mut vector = Vec::new();
-        $(vector.push(Link::from($x));)*
-        vector
+        #[allow(unused_mut)]
+        let mut hashset = HashSet::new();
+        $(hashset.insert(Link::from($x));)*
+        hashset
     }}
 }
