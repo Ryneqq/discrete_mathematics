@@ -49,6 +49,8 @@ impl From<(u32, u32)> for Link {
 
 macro_rules! link {
     ($($x: expr),*) => {{
+        use std::collections::HashSet;
+
         #[allow(unused_mut)]
         let mut hashset = HashSet::new();
         $(hashset.insert(Link::from($x));)*
